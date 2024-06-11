@@ -9,9 +9,11 @@ class SessionController{
 
         if (!user) {
             user = await User.create({ email, password});
+            return res.json(user);
         }        
 
-        return res.json(user);
+        
+        return res.json({ messagem: 'Usuário já existe.'})
     }
 }
 

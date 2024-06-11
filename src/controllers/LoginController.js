@@ -2,10 +2,12 @@ import User from "../models/User";
 
 class LoginController{
 
+    // Controller para logar
     async login(req, res){
         const { email, password } = req.body;
 
         const user = await User.findOne({ email });
+        
         if (!user) {
             return res.status(400).json({ error: 'Usuário não encontrado.'})
         }
@@ -16,9 +18,6 @@ class LoginController{
 
         return res.json({ message: 'Usuário logado!', user })
     }
-    
-
-
 }
 
 export default new LoginController();

@@ -24,4 +24,7 @@ routes.get('/getriskpoints', RiskPointController.getriskpoint);
 // Rota da Editar Ponto de Risco
 routes.put('/update', RiskPointController.updateRiskPoint);
 
+// Rota para deletar Ponto de Risco
+routes.delete('/delete/:id', RiskPointController.destroy);
+
 export default routes;

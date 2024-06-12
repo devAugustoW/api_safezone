@@ -8,7 +8,6 @@ class RiskPointController{
         
         try {
             let riskPoint = await RiskPoint.create({ 
-                id: _id,
                 ref, 
                 title, 
                 location, 
@@ -45,7 +44,6 @@ class RiskPointController{
     async getriskpoint(req, res) {
         try {
             const riskPoints = await RiskPoint.find({});
-            console.log('Pegou riskPoints: ', riskPoints);
             return res.json(riskPoints);
 
         } catch (error) {
@@ -69,19 +67,40 @@ class RiskPointController{
 
             // Atualizando o documento no MongoDB
             const updatedRiskPoint = await RiskPoint.findByIdAndUpdate(id,
-              { ref, title, location, description, status, image }
+                { ref, title, location, description, status, image }
             );
-      
+        
             if (!updatedRiskPoint) {
-              return res.status(404).json({ error: 'Ponto de risco não encontrado' });
+                return res.status(404).json({ error: 'Ponto de risco não encontrado' });
             }
-      
+        
             return res.json(updatedRiskPoint);
-          } catch (error) {
+
+        } catch (error) {
             console.error('Erro ao atualizar Ponto de Risco:', error);
             return res.status(500).json({ error: 'Erro ao atualizar Ponto de Risco' });
-          }
+        }
 
+    }
+
+    // Deleta ponrto de risco
+    async destroy(req, res) {
+        const { id } = req.params;
+        console.log('Recebendo pedido para deletar ID:', id);
+
+        try {
+            const riskPoint = await RiskPoint.findByIdAndDelete(id);
+        
+            if (!riskPoint) {
+                return res.status(404).json({ message: 'ID do Ponto de risco não encontrado' });
+            }
+        
+            return res.json({ message: 'Ponto de risco deletado com sucesso' });
+        
+        } catch (err) {
+            return res.status(500).json({ message: 'Erro ao deletar ponto de risco' });
+        
+        }
     }
 }
 

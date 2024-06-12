@@ -12,7 +12,16 @@ routes.post('/sessions', SessionController.store);
 // Logar usuário
 routes.post('/login', LoginController.login);
 
-// Criar Ponto de Risco
+// Rota para criar Ponto de Risco
 routes.post('/create', RiskPointController.store);
+
+// Rota para resgatar pontos de marcação no mapa
+routes.get('/getlocations', RiskPointController.getLocations);
+
+// Rota para resgatar os Pontos de Risco
+routes.get('/getriskpoints', RiskPointController.getriskpoint);
+
+// Rota da Editar Ponto de Risco
+routes.put('/update', RiskPointController.updateRiskPoint);
 
 export default routes;

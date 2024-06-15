@@ -5,6 +5,10 @@ import RiskPointController from './controllers/RiskPointController';
 
 const routes = new Router();
 
+// Rota raiz
+routes.get('/', (req, res) => {
+  res.send('API is running');
+});
 
 // Cria um usuário
 routes.post('/sessions', SessionController.store);

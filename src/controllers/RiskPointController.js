@@ -4,7 +4,7 @@ class RiskPointController{
 
     // Cria ponto de risco na Tabela
     async store(req, res){
-        const { ref, title, location, description, status, image } = req.body
+        const { ref, title, location, description, status, image, statusDescription } = req.body
         
         try {
             let riskPoint = await RiskPoint.create({ 
@@ -13,6 +13,7 @@ class RiskPointController{
                 location, 
                 description, 
                 status, 
+                statusDescription,
                 image 
             });
         
@@ -55,7 +56,7 @@ class RiskPointController{
 
     // Atualiza Ponto de Risco
     async updateRiskPoint(req, res){
-        const { id, ref, title, location, description, status, image } = req.body;
+        const { id, ref, title, location, description, status, statusDescription, image } = req.body;
 
         try {
             // Verificar se o documento existe
@@ -67,7 +68,7 @@ class RiskPointController{
 
             // Atualizando o documento no MongoDB
             const updatedRiskPoint = await RiskPoint.findByIdAndUpdate(id,
-                { ref, title, location, description, status, image }
+                { ref, title, location, description, status, statusDescription, image }
             );
         
             if (!updatedRiskPoint) {

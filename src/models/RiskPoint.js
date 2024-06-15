@@ -11,6 +11,7 @@ const RiskPointSchema = new Schema({
     },
     description: String,
     status: { type: Boolean, default: false },
+    statusDescription: String,
     image: String,
 },{ timestamps: true });
 

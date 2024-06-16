@@ -7,7 +7,7 @@ const routes = new Router();
 
 // Rota raiz
 routes.get('/', (req, res) => {
-  res.send('API is running');
+  res.send('API Rodando');
 });
 
 // Cria um usuário

@@ -1,7 +1,6 @@
 import User from "../models/User";
 
 class SessionController{
-
     async store(req, res){
         const { email, password } = req.body
 
@@ -12,7 +11,6 @@ class SessionController{
             return res.json(user);
         }        
 
-        
         return res.json({ messagem: 'Usuário já existe.'})
     }
 }

@@ -5,8 +5,8 @@ class LoginController{
     // Controller para logar
     async login(req, res){
         const { email, password } = req.body;
-
         const user = await User.findOne({ email });
+
         try{
             if (!user) {
                 console.error('Usuário não encontrado.');
@@ -19,9 +19,12 @@ class LoginController{
             }
 
             return res.json({ message: 'Usuário logado!', user })
+
         } catch (error) {
             console.error('Erro na chamada login:', error)
+            
             return res.status(500).json({ error: 'Erro na chamada.' });
+
         }
     }
 }

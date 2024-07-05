@@ -3,12 +3,10 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import User from "../models/User";
 
-const SECRET_KEY = process.env.SECRET_KEY || 'secret_key';
+const SECRET_KEY = process.env.SECRET_KEY;
 
 class AuthController{
   async store(req, res){
-    console.log('ENTROU NO AUTHCONTROLLER!')
-    
     const { email, password } = req.body
 
     const user = await User.findOne({ email });
@@ -21,9 +19,11 @@ class AuthController{
       return res.status(400).json({ error: 'Invalid password' });
     }
 
-    const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, {
-      expiresIn: '1d'
-    });
+    const token = jwt.sign(
+      { id: user._id }, 
+      SECRET_KEY, 
+      { expiresIn: '1d' }
+    );
 
     return res.json({
       user: {

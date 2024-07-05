@@ -15,20 +15,7 @@ class RiskPointController{
       image 
     });
 
-    return res.json({ 
-      id: riskPoint._id,
-      ref: riskPoint.ref,
-      title: riskPoint.title,
-      location: riskPoint.location,
-      description: riskPoint.description,
-      status: riskPoint.status,
-      statusDescription: riskPoint.statusDescription,
-      image: riskPoint.image,
-      createdAt: riskPoint.createdAt,
-      updatedAt: riskPoint.updatedAt 
-    })
-
-    // return res.json({ riskPoint });
+    return res.json(riskPoint);
   }
   
   // Atualiza Ponto de Risco

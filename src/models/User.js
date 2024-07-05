@@ -15,7 +15,6 @@ const UserSchema = new Schema(
   }
 );
 
-
 UserSchema.pre('save', async function (next) {
   const user = this;
 
@@ -32,16 +31,3 @@ UserSchema.pre('save', async function (next) {
   }
 })
 export default model('User', UserSchema);
-
-/*
-UserSchema.virtual('password')
-   .set(function(password) {
-      this._password = password;
-      this.password_hash = password;
-
-   })
-   .get(function() {
-      return this._password;
-      
-   });
-*/

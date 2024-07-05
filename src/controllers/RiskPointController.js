@@ -1,108 +1,106 @@
 import RiskPoint from '../models/RiskPoint';
 
 class RiskPointController{
+  // Cria ponto de risco na Tabela
+  async store(req, res){
+    const { ref, title, location, description, status, image, statusDescription } = req.body
 
-    // Cria ponto de risco na Tabela
-    async store(req, res){
-        const { ref, title, location, description, status, image, statusDescription } = req.body
-        
-        try {
-            let riskPoint = await RiskPoint.create({ 
-                ref, 
-                title, 
-                location, 
-                description, 
-                status, 
-                statusDescription,
-                image 
-            });
-        
-            return res.json(riskPoint);
+    let riskPoint = await RiskPoint.create({ 
+      ref, 
+      title, 
+      location, 
+      description, 
+      status, 
+      statusDescription,
+      image 
+    });
 
-        } catch (err) {
-            return res.status(500).json ({ messagem: 'Erro ao inserir ponto de risco na TABELA'});
+    return res.json({ 
+      id: riskPoint._id,
+      ref: riskPoint.ref,
+      title: riskPoint.title,
+      location: riskPoint.location,
+      description: riskPoint.description,
+      status: riskPoint.status,
+      statusDescription: riskPoint.statusDescription,
+      image: riskPoint.image,
+      createdAt: riskPoint.createdAt,
+      updatedAt: riskPoint.updatedAt 
+    })
 
-        }     
+    // return res.json({ riskPoint });
+  }
+  
+  // Atualiza Ponto de Risco
+  async update(req, res){    
+    const { id } = req.params;
+    const {ref, title, location, description, status, statusDescription, image} = req.body;
+
+    const existingRiskPoint = await RiskPoint.findById(id);
+
+    if (!existingRiskPoint) {
+      return res.status(404).json({ error: 'Ponto de risco não encontrado' });
     }
 
-    // Resgata as coordenadas de localicação
-    async getLocations(req, res) {
+    // Atualizando o documento no MongoDB
+    const updatedRiskPoint = await RiskPoint.findByIdAndUpdate(
+      id,
+      { ref, title, location, description, status, statusDescription, image }
+    );
+    
+    return res.json({
+      id: updatedRiskPoint._id,
+      ref: updatedRiskPoint.ref,
+      title: updatedRiskPoint.title,
+      location: updatedRiskPoint.location,
+      description: updatedRiskPoint.description,
+      status: updatedRiskPoint.status,
+      statusDescription: updatedRiskPoint.statusDescription,
+      image: updatedRiskPoint.image,
+      createdAt: updatedRiskPoint.createdAt,
+      updatedAt: updatedRiskPoint.updatedAt
+    })
 
-        try{
-            const locations = await RiskPoint.find({}, 'location'); 
-            console.log('Pegou locations: ', locations)
-            return res.json(locations);
+    // return res.json(updatedRiskPoint);
+  }
 
-        }catch(error){
-            console.error('Erro ao buscar localizações:', err);
-            return res.status(500).json({ error: 'Erro ao buscar localizações' });
+  // Resgata os pontos de risco
+  async index(req, res) {
+    const riskPoints = await RiskPoint.find({});
 
-        }
-
+    if (!riskPoints) {
+      return res.status(404).json({ error: 'Falha ao listar Pontos de Risco.'});
     }
 
-    // Resgata os pontos de risco
-    async getriskpoint(req, res) {
-        try {
-            const riskPoints = await RiskPoint.find({});
-            return res.json(riskPoints);
+    return res.json(riskPoints);  
+  }
 
-        } catch (error) {
-            console.error('Erro ao buscar pontos de risco:', error);
-            return res.status(500).json({ error: 'Erro ao buscar pontos de risco' });
-        
-        }
+  // Deleta ponrto de risco
+  async delete(req, res) {
+    const { id } = req.params;
+    console.log('Recebendo pedido para deletar ID:', id);
+
+    const riskPoint = await RiskPoint.findByIdAndDelete(id);
+
+    if (!riskPoint) {
+      return res.status(404).json({ message: 'ID do Ponto de risco não encontrado' });
+    }
+  
+    return res.json({ message: 'Ponto de risco deletado com sucesso!' });    
+  }
+
+  // Resgata as coordenadas de localicação para renderizar pontos no mapa
+  async getLocations(req, res) {
+
+    const locations = await RiskPoint.find({}, 'location'); 
+
+    if (!locations){
+      return res.status(404).json({ error: 'Falha ao resgatar localizações.'})
     }
 
-    // Atualiza Ponto de Risco
-    async updateRiskPoint(req, res){
-        const { id, ref, title, location, description, status, statusDescription, image } = req.body;
+    return res.json(locations);    
+  }
 
-        try {
-            // Verificar se o documento existe
-            const existingRiskPoint = await RiskPoint.findById(id);
-
-            if (!existingRiskPoint) {
-                return res.status(404).json({ error: 'Ponto de risco não encontrado' });
-            }
-
-            // Atualizando o documento no MongoDB
-            const updatedRiskPoint = await RiskPoint.findByIdAndUpdate(id,
-                { ref, title, location, description, status, statusDescription, image }
-            );
-        
-            if (!updatedRiskPoint) {
-                return res.status(404).json({ error: 'Ponto de risco não encontrado' });
-            }
-        
-            return res.json(updatedRiskPoint);
-
-        } catch (error) {
-            console.error('Erro ao atualizar Ponto de Risco:', error);
-            return res.status(500).json({ error: 'Erro ao atualizar Ponto de Risco' });
-        }
-
-    }
-
-    // Deleta ponrto de risco
-    async destroy(req, res) {
-        const { id } = req.params;
-        console.log('Recebendo pedido para deletar ID:', id);
-
-        try {
-            const riskPoint = await RiskPoint.findByIdAndDelete(id);
-        
-            if (!riskPoint) {
-                return res.status(404).json({ message: 'ID do Ponto de risco não encontrado' });
-            }
-        
-            return res.json({ message: 'Ponto de risco deletado com sucesso' });
-        
-        } catch (err) {
-            return res.status(500).json({ message: 'Erro ao deletar ponto de risco' });
-        
-        }
-    }
 }
 
 export default new RiskPointController();

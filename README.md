@@ -13,8 +13,9 @@ Este projeto consiste em uma API RESTful completa desenvolvida com as seguintes 
 2. Express.js <br>
 3. Mongoose <br>
 4. MongoDB Atlas <br>
+5. Bcrypt <br>
+6. Json Web Token
 
-<br>
 <br>
 
 ## Funcionalidades 🔧
@@ -53,8 +54,10 @@ Este projeto consiste em uma API RESTful completa desenvolvida com as seguintes 
 2. Adicione String de conexão do MongoDB Atlas à uma variável de ambiente ao arquivo .env:
    ```env
    MONGODB_URI=<sua_string_de_conexao_do_MongoDB_Atlas>
+   JWT_SECRET=<sua_chave_secreta_jwt>
    ```
 3. Substitua <sua_string_de_conexao_do_MongoDB_Atlas> pela string de conexão do seu banco de dados MongoDB Atlas.
+4. Substitua <sua_chave_secreta_jwt> por uma chave secreta de sua escolha para assinar os tokens JWT.
 
 <br>
 <br>
@@ -72,15 +75,23 @@ yarn dev
 
 ## Rotas da API 🌐
 
-1. Logar usuário <br>
+1. Criar usuário <br>
 
 ```bash
-routes.post('/login', LoginController.login);
+routes.post('/createusers', UserController.store);
 ```
 
 <br>
 
-2. Criar um Ponto de Risco <br>
+2. Logar usuário <br>
+
+```bash
+routes.post('/login', AuthController.store);
+```
+
+<br>
+
+3. Criar um Ponto de Risco <br>
 
 ```bash
 routes.post('/create', RiskPointController.store);
@@ -88,15 +99,15 @@ routes.post('/create', RiskPointController.store);
 
 <br>
 
-3. Resgatar Pontos de Riscos <br>
+4. Resgatar Pontos de Riscos <br>
 
 ```bash
-routes.get('/getriskpoints', RiskPointController.getriskpoint);
+routes.get('/getriskpoints', RiskPointController.index);
 ```
 
 <br>
 
-4. Resgatar A localização de cada Ponto de Risco <br>
+5. Resgatar A localização de cada Ponto de Risco <br>
 
 ```bash
 routes.get('/getlocations', RiskPointController.getLocations);
@@ -104,18 +115,18 @@ routes.get('/getlocations', RiskPointController.getLocations);
 
 <br>
 
-5. Atualizar um Ponto de Risco <br>
+6. Atualizar um Ponto de Risco <br>
 
 ```bash
-routes.put('/update', RiskPointController.updateRiskPoint);
+routes.put('/update/:id', RiskPointController.update);
 ```
 
 <br>
 
-6. Deletar um Ponto de Risco <br>
+7. Deletar um Ponto de Risco <br>
 
 ```bash
-routes.delete('/delete/:id', RiskPointController.destroy);
+routes.delete('/delete/:id', RiskPointController.delete);
 ```
 
 <br>

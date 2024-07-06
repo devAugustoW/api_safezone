@@ -1,7 +1,5 @@
-// mongoose
 import { Schema, model } from 'mongoose';
 
-// model riskPointSchema
 const RiskPointSchema = new Schema({
     ref: String,
     title: String,
@@ -15,6 +13,4 @@ const RiskPointSchema = new Schema({
     image: String,
 },{ timestamps: true });
 
-
-// exportar
 export default model('RiskPoint', RiskPointSchema);

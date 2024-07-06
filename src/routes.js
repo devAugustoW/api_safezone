@@ -1,34 +1,34 @@
 import { Router } from 'express';
-import SessionController from './controllers/SessionController';
-import LoginController from './controllers/LoginController';
+
+import authMiddleware from './middlewares/auth';
+
+import UserController from './controllers/UserController';
+import AuthController from './controllers/AuthController';
 import RiskPointController from './controllers/RiskPointController';
 
 const routes = new Router();
 
-// Rota raiz
-routes.get('/', (req, res) => {
-  res.send('API Rodando');
-});
+routes.post('/createusers', UserController.store);
 
-// Cria um usuário
-routes.post('/sessions', SessionController.store);
+routes.post('/login', AuthController.store);
 
-// Logar usuário
-routes.post('/login', LoginController.login);
+
+// Todas as rotas abaixo deste Middleware precisão estar autenticadas
+routes.use(authMiddleware);
 
 // Rota para criar Ponto de Risco
 routes.post('/create', RiskPointController.store);
 
-// Rota para resgatar pontos de marcação no mapa
-routes.get('/getlocations', RiskPointController.getLocations);
-
-// Rota para resgatar os Pontos de Risco
-routes.get('/getriskpoints', RiskPointController.getriskpoint);
-
 // Rota da Editar Ponto de Risco
-routes.put('/update', RiskPointController.updateRiskPoint);
+routes.put('/update/:id', RiskPointController.update);
+
+// Rota para resgatar todos os Pontos de Risco
+routes.get('/getriskpoints', RiskPointController.index);
 
 // Rota para deletar Ponto de Risco
-routes.delete('/delete/:id', RiskPointController.destroy);
+routes.delete('/delete/:id', RiskPointController.delete);
+
+// Rota para resgatar pontos de marcação no mapa
+routes.get('/getlocations', RiskPointController.getLocations);
 
 export default routes;

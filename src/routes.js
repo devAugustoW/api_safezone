@@ -34,3 +34,4 @@ routes.get('/getlocations', RiskPointController.getLocations);
 export default routes;
 
 
+

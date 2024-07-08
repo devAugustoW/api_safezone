@@ -30,6 +30,16 @@ Este projeto consiste em uma API RESTful completa desenvolvida com as seguintes 
 <br>
 <br>
 
+## Seguraça e Autenticação 🔒
+
+O SafeZone agora oferece recursos de segurança aprimorados com:
+
+1. **Criptografia de senha Bcrypt:** As senhas dos usuários são armazenadas com segurança usando criptografia Bcrypt, protegendo-as contra acessos não autorizados. <br>
+2. **Autenticação JWT:** A autenticação JWT é usada para controlar o acesso aos recursos do aplicativo, garantindo que apenas usuários autorizados possam acessá-los.
+
+<br>
+<br>
+
 ## Pré-requisitos 📦
 
 1. Node.js: Versão 18 ou superior instalado em sua máquina. <br>

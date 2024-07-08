@@ -1,6 +1,6 @@
 # API em Node.js, Express, Mongoose e MongoDB Atlas 🚀
 
-Esta API serve uma aplicação React Native voltada para gestão de Pontos de Risco em obras ou indústrias. Ela <br>
+Esta API serve uma aplicação React Native voltada para gestão de Pontos de Risco em obras ou indústrias. Ela permite o registro e mapeamento de pontos de risco em ambientes mais críticos à segurança. <br>
 
 <br>
 <br>
@@ -24,7 +24,7 @@ Este projeto consiste em uma API RESTful completa desenvolvida com as seguintes 
 2. Resgatar: Obter os Pontos de Risco existentes no banco de dados. <br>
 3. Atualizar: Modificar os Pontos de Risco existentes no banco de dados. <br>
 4. Excluir: Remover os Pontos de Risco do banco de dados. <br>
-5. Autenticação: Login de usuário com geração de token JWT.<br>
+5. Autenticação JWT: Login de usuário com geração de token JWT.<br>
 6. Criptografia de Senha: Senhas dos usuários são criptografadas usando bcrypt.
 
 <br>
@@ -33,7 +33,7 @@ Este projeto consiste em uma API RESTful completa desenvolvida com as seguintes 
 ## Pré-requisitos 📦
 
 1. Node.js: Versão 18 ou superior instalado em sua máquina. <br>
-2. yarn: Gerenciador de pacotes Node.js. <br>
+2. Yarn: Gerenciador de pacotes Node.js. <br>
 3. Conta MongoDB Atlas: Crie uma conta no MongoDB Atlas para obter acesso a um banco de dados MongoDB em nuvem. <br>
 
 <br>
@@ -51,7 +51,7 @@ Este projeto consiste em uma API RESTful completa desenvolvida com as seguintes 
 ## Configuração ⚙️
 
 1. Crie um arquivo .env na raiz do projeto. <br>
-2. Adicione String de conexão do MongoDB Atlas à uma variável de ambiente ao arquivo .env:
+2. Adicione a String de conexão do MongoDB Atlas à uma variável de ambiente no arquivo .env:
    ```env
    MONGODB_URI=<sua_string_de_conexao_do_MongoDB_Atlas>
    JWT_SECRET=<sua_chave_secreta_jwt>

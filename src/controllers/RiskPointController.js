@@ -55,10 +55,8 @@ class RiskPointController{
   async index(req, res) {
     const riskPoints = await RiskPoint.find({});
 
-    if (!riskPoints) {
-      return res.status(404).json({ error: 'Falha ao listar Pontos de Risco.'});
-    }
-
+    if (!riskPoints) res.status(404).json({ error: 'Falha ao listar Pontos de Risco.'});
+  
     return res.json(riskPoints);  
   }
 
@@ -81,10 +79,8 @@ class RiskPointController{
 
     const locations = await RiskPoint.find({}, 'location'); 
 
-    if (!locations){
-      return res.status(404).json({ error: 'Falha ao resgatar localizações.'})
-    }
-
+    if (!locations) res.status(404).json({ error: 'Falha ao resgatar localizações.'})
+    
     return res.json(locations);    
   }
 

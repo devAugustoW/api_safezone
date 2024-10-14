@@ -8,22 +8,16 @@ const SECRET_KEY = process.env.SECRET_KEY;
 class UserController{
   async store(req, res){
     const { email, password } = req.body
-
     const user = await User.findOne({ email });
 
-    if (!user) {
-      return res.status(404).json({ error: 'Usuário não encontrado.'})
-    }
+    if (!user) return res.status(404).json({ error: 'Usuário não encontrado.'});
 
-    if (!await bcrypt.compare(password, user.password_hash)) {
-      return res.status(400).json({ error: 'Invalid password' });
-    }
+    if (!await bcrypt.compare(password, user.password_hash))
+		return res.status(400).json({ error: 'Invalid password' });
 
-    const token = jwt.sign(
-      { id: user._id }, 
+    const token = jwt.sign({ id: user._id }, 
       SECRET_KEY, 
-      { expiresIn: '1d' }
-    );
+      { expiresIn: '1d' });
 
     return res.json({
       user: {

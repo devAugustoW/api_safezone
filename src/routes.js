@@ -1,17 +1,13 @@
 import { Router } from 'express';
-
-import authMiddleware from './middlewares/auth';
-
 import UserController from './controllers/UserController';
 import AuthController from './controllers/AuthController';
 import RiskPointController from './controllers/RiskPointController';
+import authMiddleware from './middlewares/auth';
 
 const routes = new Router();
 
 routes.post('/createusers', UserController.store);
-
 routes.post('/login', AuthController.store);
-
 
 // Todas as rotas abaixo deste Middleware precisão estar autenticadas
 routes.use(authMiddleware);
